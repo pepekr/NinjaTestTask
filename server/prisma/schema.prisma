@@ -14,7 +14,7 @@ datasource db {
 }
 
 model SuperHero {
-  id                 String  @id
+  id                 String  @id @default(uuid())
   nickname           String
   real_name          String
   origin_description String
@@ -24,7 +24,7 @@ model SuperHero {
 }
 
 model Image {
-  id           String    @id
+  id           String    @id @default(uuid())
   imageOwnerId String
   imageOwner   SuperHero @relation(fields: [imageOwnerId], references: [id])
   url          String
