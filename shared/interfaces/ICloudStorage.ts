@@ -1,5 +1,5 @@
 export interface ICloudStorage {
-    getItem(url: string): Promise<Buffer>;    
-    saveItem(item: Buffer | string | object): Promise<string>;
-    deleteItem(url: string): Promise<Buffer>;
+    getItem(key: string): Promise<Buffer>;    
+    saveItem(item: Buffer | Uint8Array, fileName:string ): Promise<string>;
+    deleteItem(key: string): Promise<boolean>;
 }
