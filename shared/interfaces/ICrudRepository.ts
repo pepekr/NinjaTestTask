@@ -1,4 +1,6 @@
-// note: if it will be beoynd crud create another interface for additional methods
+/**
+ * Generic crud interface for db operations 
+ */
 export interface ICrudRepository<T> {
   create(item: T): Promise<T>;
   read(itemId: string): Promise<T>;
