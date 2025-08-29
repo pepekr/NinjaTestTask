@@ -3,11 +3,12 @@ import { ICrudRepository } from "../../../shared/interfaces/ICrudRepository.js";
 import { IGetRepository } from "../../../shared/interfaces/IGetRepository.js";
 import prismaClient from "prismaClient.js";
 import { HeroImage } from "../../../shared/interfaces/HeroImage.js";
+import { IGetByHeroId } from "../../../shared/interfaces/IGetByHeroId.js";
 /**
  * Prisma implementation of db operations
  */
 export default class PrismaSuperheroImpl
-  implements ICrudRepository<HeroImage>, IGetRepository<HeroImage>
+  implements ICrudRepository<HeroImage>, IGetRepository<HeroImage>, IGetByHeroId
 {
   async create(item: HeroImage): Promise<HeroImage> {
     return prismaClient.image.create({ data: item });

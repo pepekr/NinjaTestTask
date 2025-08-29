@@ -1,8 +1,8 @@
 import { ICrudRepository } from "../../../../shared/interfaces/ICrudRepository.js";
 import { IGetRepository } from "../../../../shared/interfaces/IGetRepository.js";
-export class GenericDbService< T> {
-  private dbManager: ICrudRepository<T> & IGetRepository<T>;
-  constructor(dbManager: ICrudRepository<T> & IGetRepository<T>) {
+export class GenericDbService<T, TAdditionalInterface = {}> {
+  protected dbManager: ICrudRepository<T> & IGetRepository<T> & TAdditionalInterface;
+  constructor(dbManager: ICrudRepository<T> & IGetRepository<T> & TAdditionalInterface) {
     this.dbManager = dbManager;
   }
   async create(obj: Omit<T, "id">): Promise<T> {
