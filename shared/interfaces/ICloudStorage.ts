@@ -1,6 +1,5 @@
-export interface ICloudStorage<T>
-{
-    getItem(url:string):Promise<T>
-    saveItem(item:T):Promise<string>
-    deleteItem(url:string):Promise<T>
+export interface ICloudStorage {
+    getItem(key: string): Promise<Buffer>;    
+    saveItem(item: Buffer | Uint8Array, fileName:string ): Promise<string>;
+    deleteItem(key: string): Promise<boolean>;
 }
