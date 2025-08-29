@@ -7,7 +7,7 @@ import { IGetByHeroId } from "../../../shared/interfaces/IGetByHeroId.js";
 /**
  * Prisma implementation of db operations
  */
-export default class PrismaSuperheroImpl
+export default class PrismaImagesImpl
   implements ICrudRepository<HeroImage>, IGetRepository<HeroImage>, IGetByHeroId
 {
   async create(item: HeroImage): Promise<HeroImage> {
