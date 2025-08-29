@@ -1,35 +1,21 @@
+import { GenericDbService } from "Services/Shared/GenericDbService.js";
+import { HeroImage } from "../../../../shared/interfaces/HeroImage.js";
 import { ICrudRepository } from "../../../../shared/interfaces/ICrudRepository.js";
 import { IGetRepository } from "../../../../shared/interfaces/IGetRepository.js";
-import {
+import { IGetByHeroId } from "../../../../shared/interfaces/IGetByHeroId.js";
+
+export class HeroImageDbService extends GenericDbService<
   HeroImage,
-  HeroImageCreational,
-} from "../../../../shared/interfaces/HeroImage.js";
-import { v4 as uuidv4 } from "uuid";
-export class HeroImageDbService {
-  private dbManager: ICrudRepository<HeroImage> & IGetRepository<HeroImage>;
+  IGetByHeroId
+> {
   constructor(
-    dbManager: ICrudRepository<HeroImage> & IGetRepository<HeroImage>
+    dbManager: ICrudRepository<HeroImage> &
+      IGetRepository<HeroImage> &
+      IGetByHeroId
   ) {
-    this.dbManager = dbManager;
+    super(dbManager);
   }
-  async createHeroImage(superhero: HeroImageCreational): Promise<HeroImage> {
-    return this.dbManager.create({ id: uuidv4(), ...superhero });
-  }
-
-  async updateHeroImage(
-    id: string,
-    superhero: Partial<HeroImage>
-  ): Promise<HeroImage> {
-    return this.dbManager.update(id, superhero);
-  }
-
-  async getAllHeroImages(offset?: number, take?: number): Promise<HeroImage[]> {
-    return this.dbManager.getAll(offset, take);
-  }
-  async getById(id: string): Promise<HeroImage | null> {
-    return this.dbManager.getById(id);
-  }
-  async delete(id: string): Promise<HeroImage> {
-    return this.dbManager.delete(id);
+  async getByHeroId(heroId: string) {
+    return this.dbManager.getByHeroId(heroId);
   }
 }
