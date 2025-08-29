@@ -1,12 +1,18 @@
-export interface HeroImage
-{
-    id: string,
-    imageOwnerId:string;
-    url:string
+export interface HeroImage {
+  id: string;
+  imageOwnerId: string;
+  url: string;
 }
 
-export interface HeroImageCreational
-{
-    imageOwnerId: string,
-    url:string
+export interface HeroImageCreational {
+  imageOwnerId: string;
+  image: Buffer<ArrayBufferLike>;
+  fileName:string
+}
+
+export interface HeroImageWithBuffer {
+  key: string;
+  id: string;
+  imageOwnerId: string;
+  image: Buffer<ArrayBufferLike>;
 }
