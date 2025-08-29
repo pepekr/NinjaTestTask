@@ -11,5 +11,5 @@ export interface IGetRepository<T> {
    * Gets one item based on unique id
    * @param itemId Id of retrieving item
    */
-  getById(itemId: T): Promise<T>;
+  getById(itemId: string): Promise<T|null>;
 }

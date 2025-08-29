@@ -1,5 +1,5 @@
 // no need for any dtos no confidential or unneccessary info 
-export interface SuperHeroWithoutImages {
+export interface Superhero {
     id: string;
     nickname: string;
     real_name: string;
