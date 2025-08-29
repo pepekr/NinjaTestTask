@@ -13,6 +13,7 @@
   "license": "ISC",
   "type": "module",
   "dependencies": {
+    "@aws-sdk/client-s3": "^3.878.0",
     "@prisma/client": "^6.15.0",
     "aws-sdk": "^2.1692.0",
     "bcrypt": "^6.0.0",
