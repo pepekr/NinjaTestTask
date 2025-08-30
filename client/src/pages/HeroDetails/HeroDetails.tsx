@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import type { Superhero } from "../../../../shared/interfaces/SuperHero";
 import { useHeroImages } from "./useHeroImages";
+import { Carousel } from "../../components/Carousel";
 
 function HeroDetails() {
   const location = useLocation();
@@ -14,9 +15,9 @@ function HeroDetails() {
       console.log(hero, "CHECK");
       getImages(hero.id);
     }
-  }, [hero]);
+  }, []);
 
-  return <div>{heroImages && heroImages.map((img) => <p key={img.id}>{img.url}</p>)}</div>;
+  return Carousel(heroImages);
 }
 
 export default HeroDetails;
