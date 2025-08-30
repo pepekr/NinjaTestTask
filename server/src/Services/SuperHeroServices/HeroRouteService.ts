@@ -66,7 +66,7 @@ export class HeroRouteService {
       !heroPart.real_name ||
       !heroPart.superpowers
     ) {
-      return new Error("Invalid Data");
+      throw new Error("Invalid Data");
     }
     return await this.userDbService.update(heroId, heroPart);
   }

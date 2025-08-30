@@ -11,7 +11,7 @@ export class HeroImageRouteService {
     this.heroImageCloudService = hics;
     this.heroImageDbService = hids;
   }
-  async getAllHeroImages(heroId: string, offset:number, take:number ): Promise<HeroImageWithBuffer[]> {
+  async getAllHeroImages(heroId: string, offset?:number, take?:number ): Promise<HeroImageWithBuffer[]> {
     if (!heroId) throw new Error("invalid data");
     const images = await this.heroImageDbService.getByHeroId(heroId,offset,take);
     const imgPromises = images.map(async (image) => {

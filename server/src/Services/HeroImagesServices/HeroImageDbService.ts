@@ -15,7 +15,7 @@ export class HeroImageDbService extends GenericDbService<
   ) {
     super(dbManager);
   }
-  async getByHeroId(heroId: string, offset:number, take:number) {
+  async getByHeroId(heroId: string, offset?:number, take?:number) {
     return this.dbManager.getByHeroId(heroId);
   }
 }
