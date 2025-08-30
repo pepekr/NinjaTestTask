@@ -37,7 +37,7 @@ export default class PrismaImagesImpl
    */
   async getByHeroId(heroId: string, offset?: number, take?: number):Promise<HeroImage[]> {
     return prismaClient.image.findMany({
-      where: { id: heroId },
+      where: { imageOwnerId: heroId },
       skip: offset,
       take: take,
     });
