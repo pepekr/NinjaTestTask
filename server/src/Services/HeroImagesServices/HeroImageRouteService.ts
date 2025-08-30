@@ -1,4 +1,5 @@
 import {
+  HeroImage,
   HeroImageCreational,
   HeroImageWithBuffer,
 } from "../../../../shared/interfaces/HeroImage.js";
@@ -11,15 +12,22 @@ export class HeroImageRouteService {
     this.heroImageCloudService = hics;
     this.heroImageDbService = hids;
   }
-  async getAllHeroImages(heroId: string, offset?:number, take?:number ): Promise<HeroImageWithBuffer[]> {
+  async getAllHeroImages(
+    heroId: string,
+    offset?: number,
+    take?: number
+  ): Promise<HeroImage[]> {
     if (!heroId) throw new Error("invalid data");
-    const images = await this.heroImageDbService.getByHeroId(heroId,offset,take);
+    const images = await this.heroImageDbService.getByHeroId(
+      heroId,
+      offset,
+      take
+    );
     const imgPromises = images.map(async (image) => {
       return {
-        key: image.url,
         imageOwnerId: image.imageOwnerId,
         id: image.id,
-        image: await this.heroImageCloudService.getItem(image.url),
+        url: await this.heroImageCloudService.getItemUrl(image.url),
       };
     });
     const cloudImg = await Promise.all(imgPromises);
@@ -39,7 +47,12 @@ export class HeroImageRouteService {
       url: key,
     };
     const dbImage = await this.heroImageDbService.create(imageDb);
-    return { ...dbImage, image: img.image };
+    const url = await this.heroImageCloudService.getItemUrl(dbImage.url);
+    return {
+      id: dbImage.id,
+      imageOwnerId: dbImage.imageOwnerId,
+      url,
+    };
   }
   async deleteImage(id: string, key: string) {
     if (!id || !key) {
