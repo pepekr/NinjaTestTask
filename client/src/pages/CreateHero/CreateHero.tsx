@@ -1,5 +1,5 @@
 import React, { useState, type ChangeEvent, type FormEvent } from 'react';
-import type { SuperheroCreational } from "../../../shared/interfaces/SuperHero.js";
+import type { SuperheroCreational } from "../../../../shared/interfaces/SuperHero.js";
 
 const CreateHero: React.FC = () => {
   const [hero, setHero] = useState<SuperheroCreational>({

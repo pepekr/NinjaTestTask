@@ -1,7 +1,7 @@
 import { Route, Routes } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import "./index.css";
-import CreateHero from "./pages/CreateHero";
+import CreateHero from "./pages/CreateHero/CreateHero";
 function App() {
   return (
     <div className="min-h-screen w-full bg-gray-50">
