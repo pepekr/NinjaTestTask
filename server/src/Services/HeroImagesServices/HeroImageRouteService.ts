@@ -35,11 +35,11 @@ export class HeroImageRouteService {
   }
 
   async createImage(heroId: string, img: HeroImageCreational) {
-    if (!heroId || !img || !img.imageOwnerId || !img.image) {
+    if (!heroId || !img || !img.imageOwnerId || !img.buffer) {
       throw new Error("invalid data");
     }
     const key = await this.heroImageCloudService.saveItem(
-      img.image,
+      img.buffer,
       img.fileName
     );
     const imageDb = {

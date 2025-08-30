@@ -6,7 +6,7 @@ export interface HeroImage {
 
 export interface HeroImageCreational {
   imageOwnerId: string;
-  image: Buffer<ArrayBufferLike>;
+  buffer: Buffer<ArrayBufferLike>;
   fileName:string
 }
 
