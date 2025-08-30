@@ -7,7 +7,7 @@ export async function getHeroes(req: Request, res: Response) {
     const heroes = await superheroRouteService.getHeroesInfo(offset, take);
     const promiseImages = heroes.map(async (hero) => {
       const imgs = await imgRouteService.getAllHeroImages(hero.id, 0, 1);
-      return imgs[0];
+      return imgs.length ? imgs[0] : null;
     });
 
     const images = await Promise.all(promiseImages);
@@ -28,13 +28,13 @@ export async function deleteHero(req:Request, res:Response)
     const images = await imgRouteService.getAllHeroImages(req.params.id);
     const deletedImages = images.map(async (image)=>
       {
-        return await imgRouteService.deleteImage(image.id, image.key);
+        return await imgRouteService.deleteImage(image.id, image.url);
         // maybe later create array of mistakes for better logging  
       });
       await Promise.all(deletedImages);
       return res.status(200).json({message:"Hero deleted", id:req.params.id})
   } catch (error:any) {
-    return res.status(400).json(error.meesage)
+    return res.status(400).json(error.message)
   }
 }
 
@@ -44,7 +44,7 @@ export async function createHero(req:Request, res:Response)
     const hero = await superheroRouteService.createHero(req.body);
     return res.status(200).json(hero);
   } catch (error:any) {
-    return res.status(400).json(error.meesage)
+    return res.status(400).json(error.message)
   }
 }
 
@@ -52,7 +52,7 @@ export async function updateHero(req:Request, res: Response) {
   
   try {
     const updatedHero = await superheroRouteService.updateHero(req.params.id,req.body);
-    return res.status(400).json({hero:updatedHero, message:""})
+    return res.status(290).json({hero:updatedHero, message:""})
   } catch (error:any) {
     return res.status(400).json(error.message);
   }
