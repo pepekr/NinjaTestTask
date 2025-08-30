@@ -22,17 +22,19 @@ export async function getAllHeroImages(req: Request, res: Response) {
 
 export async function addImages(req: Request, res: Response) {
   try {
-    const images: HeroImageCreational[] = req.body;
+    const heroId = req.params.heroId;
+    const files = req.files as Express.Multer.File[];
+
     const savedImages: HeroImage[] = [];
 
-    for (const image of images) {
+    for (const file of files) {
       const bucketUrl = await imgCloudService.saveItem(
-        image.buffer,
-        image.fileName
+        file.buffer,        // multer gives you buffer directly
+        file.originalname   // multer gives original file name
       );
 
       const savedImage = await imgDbService.create({
-        ...image,
+        imageOwnerId: heroId,
         url: bucketUrl,
       });
 
