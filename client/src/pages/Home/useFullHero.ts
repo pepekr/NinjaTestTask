@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import type { Superhero } from "../../../../shared/interfaces/SuperHero";
 import type { HeroImage } from "../../../../shared/interfaces/HeroImage";
-export function useFullHero() {
+export function useFullHero({ setCounterOffset }: { setCounterOffset: React.Dispatch<React.SetStateAction<number>> }) {
   const [heroes, setHeroes] = useState<Superhero[]>([]);
   const [images, setImages] = useState<HeroImage[]>([]);
   async function getPageInfo(offset: number, take: number) {
@@ -13,9 +13,12 @@ export function useFullHero() {
     else {
       const { heroes, images }: { heroes: Superhero[]; images: HeroImage[] } =
         await response.json();
-      console.log(heroes, images, "check");
-      setImages(images.filter((img) => img != null));
-      setHeroes(heroes);
+      if (heroes.filter((h) => h != null).length <= 0) {
+        setCounterOffset(prev=>prev-take)
+      } else {
+        setImages(images.filter((img) => img != null));
+        setHeroes(heroes);
+      }
     }
   }
   return { heroes, images, getPageInfo };
