@@ -1,20 +1,18 @@
-import {Router} from "express"
+import { Router } from "express";
 
-const heroRouter = Router()
+const heroRouter = Router();
 
-heroRouter.get("/:offset/:take",()=>{
- // main page, one image per hero
+heroRouter.get("/:offset/:take", () => {
+  // main page, one image per hero
 });
 
-heroRouter.delete("/delete/:id",()=>{
-    //also need to delete all pictures 
+heroRouter.delete("/delete/:id", () => {
+  //also need to delete all pictures
 });
 
-heroRouter.put("/create", ()=>{
-    // create hero, pictures, and save in storage
+heroRouter.put("/create", () => {
+  // create hero, pictures, and save in storage
 });
 
-heroRouter.patch("/update/:id", ()=>{
-
-});
+heroRouter.patch("/update/:id", () => {});
 export default heroRouter;
