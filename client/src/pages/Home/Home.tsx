@@ -25,7 +25,7 @@ const Home = () => {
           return (
             <div
               onClick={() => {
-                navigate(`/hero/${hero.id}`);
+                navigate(`/hero-details/${hero.id}`, {state:hero});
               }}
               key={hero.id}
               className="relative border rounded-lg shadow-md p-4 flex hover:cursor-pointer flex-col"

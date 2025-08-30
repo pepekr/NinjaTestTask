@@ -3,6 +3,7 @@ import Navbar from "./components/Navbar";
 import "./index.css";
 import CreateHero from "./pages/CreateHero/CreateHero";
 import Home from "./pages/Home/Home";
+import HeroDetails from "./pages/HeroDetails/HeroDetails";
 function App() {
   return (
     <div className="min-h-screen w-full bg-gray-50">
@@ -12,6 +13,7 @@ function App() {
         <Routes>
           <Route path="/create-hero" element = {<CreateHero/>}/>
           <Route path = "/" element = {<Home/>}/>
+          <Route path="/hero-details/:id" element = {<HeroDetails/>}/>
         </Routes>
       </main>
     </div>
