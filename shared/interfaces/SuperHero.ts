@@ -1,4 +1,3 @@
-import { HeroImage } from "./HeroImage";
 
 // no need for any dtos no confidential or unneccessary info 
 export interface Superhero {
