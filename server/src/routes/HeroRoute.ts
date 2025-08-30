@@ -1,18 +1,13 @@
 import { Router } from "express";
-
+import {deleteHero, createHero, updateHero, getHeroes} from "../Controllers/superheroController.js"
 const heroRouter = Router();
 
-heroRouter.get("/:offset/:take", () => {
-  // main page, one image per hero
-});
 
-heroRouter.delete("/delete/:id", () => {
-  //also need to delete all pictures
-});
+heroRouter.get("/:offset/:take", getHeroes);
 
-heroRouter.put("/create", () => {
-  // create hero, pictures, and save in storage
-});
+heroRouter.delete("/delete/:id", deleteHero);
 
-heroRouter.patch("/update/:id", () => {});
+heroRouter.put("/create", createHero);
+
+heroRouter.patch("/update/:id", updateHero);
 export default heroRouter;
