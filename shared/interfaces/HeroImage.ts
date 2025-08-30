@@ -14,5 +14,6 @@ export interface HeroImageWithBuffer {
   key: string;
   id: string;
   imageOwnerId: string;
-  image: Buffer<ArrayBufferLike>;
+  buffer: Buffer<ArrayBufferLike>;
 }
+
