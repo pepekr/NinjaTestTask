@@ -1,40 +1,11 @@
-import React, { useState, type ChangeEvent, type FormEvent } from "react";
-import type { SuperheroCreational } from "../../../../shared/interfaces/SuperHero.js";
 import { useHeroSubmit } from "./useHeroSubmit.js";
+import { useHeroForm } from "./useHeroForm.js";
 
 const CreateHero: React.FC = () => {
-  const [hero, setHero] = useState<SuperheroCreational>({
-    nickname: "",
-    real_name: "",
-    origin_description: "",
-    superpowers: "",
-    catch_phrase: "",
-  });
-
-  const [images, setImages] = useState<File[]>([]);
-  const resetForm = () => {
-    setHero({
-      nickname: "",
-      real_name: "",
-      origin_description: "",
-      superpowers: "",
-      catch_phrase: "",
-    });
-    setImages([]);
-  };
+  const { hero, images, handleChange, handleImageChange, resetForm } =
+    useHeroForm();
 
   const { isSubmitting, handleSubmit } = useHeroSubmit(resetForm);
-  const handleChange = (
-    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
-    const { name, value } = e.target;
-    setHero((prev) => ({ ...prev, [name]: value }));
-  };
-
-  const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
-    if (!e.target.files) return;
-    setImages((prev) => [...prev, ...Array.from(e.target.files as FileList)]);
-  };
 
   return (
     <form
