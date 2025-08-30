@@ -5,15 +5,19 @@ import {
 } from "@aws-sdk/client-s3";
 import { ICloudStorage } from "../../../shared/interfaces/ICloudStorage.js";
 import s3 from "AwsClient.js";
+import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
 import { config } from "dotenv";
 import { detectFileType } from "getExtension.js";
 import { v4 as uuid4 } from "uuid";
-import { Readable } from "stream";
+
 config();
+
 export class AwsImplementation implements ICloudStorage {
+
   async saveItem(body: Buffer | Uint8Array, fileName: string): Promise<string> {
     const { mime } = await detectFileType(body, fileName);
     const uniqueKey = `images/${fileName}-${uuid4()}`;
+
     const command = new PutObjectCommand({
       Bucket: process.env.AWS_BUCKET_NAME,
       Key: uniqueKey,
@@ -25,28 +29,22 @@ export class AwsImplementation implements ICloudStorage {
     return uniqueKey;
   }
 
-  async getItem(key: string): Promise<Buffer> {
+   async getItemUrl(key: string): Promise<string> {
     const command = new GetObjectCommand({
       Bucket: process.env.AWS_BUCKET_NAME,
       Key: key,
     });
-
-    const response = await s3.send(command);
-    const stream = response.Body as Readable;
-    const chunks: Uint8Array[] = [];
-    for await (const chunk of stream) {
-      chunks.push(chunk);
-    }
-
-    return Buffer.concat(chunks);
+    const signedUrl = await getSignedUrl(s3, command, { expiresIn: 3600 });
+    return signedUrl;
   }
-  async deleteItem(key: string): Promise<boolean> {
+
+
+   async deleteItem(key: string): Promise<boolean> {
     try {
       const command = new DeleteObjectCommand({
         Bucket: process.env.AWS_BUCKET_NAME,
         Key: key,
       });
-
       await s3.send(command);
       return true;
     } catch (err) {
