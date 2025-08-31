@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useFullHero } from "./useFullHero";
 import type { Superhero } from "../../../../shared/interfaces/SuperHero";
 import type { HeroImage } from "../../../../shared/interfaces/HeroImage";
