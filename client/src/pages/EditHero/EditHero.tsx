@@ -3,6 +3,7 @@ import { useHeroEdit } from "./useHeroEdit.js";
 import type { Superhero } from "../../../../shared/interfaces/SuperHero.js";
 import type { HeroImage } from "../../../../shared/interfaces/HeroImage.js";
 import { useLocation } from "react-router-dom";
+import { MessageComponent } from "../../components/MessageComponent.js";
 
 const EditHero: React.FC = () => {
   const location = useLocation();
@@ -20,6 +21,8 @@ const EditHero: React.FC = () => {
     handleSubmit,
     isSubmitting,
     setImages,
+    message,
+    setMessage,
   } = useHeroEdit(hero, initialImages);
 
   return (
@@ -138,6 +141,7 @@ const EditHero: React.FC = () => {
       >
         {isSubmitting ? "Updating..." : "Update Hero"}
       </button>
+      {message && <MessageComponent message = {message} onClose={()=>setMessage("")} navigateTo="/"/>}
     </form>
   );
 };

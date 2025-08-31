@@ -13,6 +13,7 @@ export const useHeroEdit = (
   const [markedForDeletion, setMarkedForDeletion] = useState<Set<string>>(
     new Set()
   );
+  const [message, setMessage] = useState("")
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleChange = (
@@ -103,12 +104,14 @@ export const useHeroEdit = (
           body: JSON.stringify(hero),
         }
       );
-      if (!res.ok) throw new Error("Failed to update hero");
+      if (!res.ok) {
+        setMessage("Failed to update hero")
+        throw new Error("Failed to update hero");}
 
       await handleAddImages(hero.id);
       await handleDeleteMarkedImages();
 
-      alert("Hero updated successfully!");
+      setMessage("Hero updated successfully!")
     } catch (err: any) {
       console.error(err);
       alert(err.message);
@@ -128,5 +131,7 @@ export const useHeroEdit = (
     handleSubmit,
     isSubmitting,
     setImages,
+    message,
+    setMessage
   };
 };
