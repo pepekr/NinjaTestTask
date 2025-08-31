@@ -18,7 +18,7 @@ const CreateHero: React.FC = () => {
   return (
     <form
       onSubmit={(e) => handleSubmit(hero, images, e)}
-      className="max-w-2xl mx-auto bg-white shadow-lg rounded-2xl p-8 space-y-6"
+      className="max-w-2xl mx-auto text-gray-800 bg-white shadow-lg rounded-2xl p-8 space-y-6"
     >
       <h2 className="text-2xl font-bold text-gray-800">Create New Hero</h2>
 
