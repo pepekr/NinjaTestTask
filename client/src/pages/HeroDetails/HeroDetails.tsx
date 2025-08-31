@@ -1,21 +1,31 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import type { Superhero } from "../../../../shared/interfaces/SuperHero";
 import { useHeroImages } from "./useHeroImages";
 import { Carousel } from "../../components/Carousel";
-
+import ConfirmationComponent from "../../components/ConfirmationComponent";
+import { MessageComponent } from "../../components/MessageComponent";
 
 export default function HeroDetails() {
   const navigate = useNavigate();
   const location = useLocation();
   const hero = location.state as Superhero;
-  const { heroImages, getImages, handleDeleteHero } = useHeroImages();
+  const { heroImages, getImages, handleDeleteHero, message, setMessage } =
+    useHeroImages();
+
+  const [showConfirm, setShowConfirm] = useState(false);
 
   useEffect(() => {
     if (hero) getImages(hero.id);
   }, [hero]);
 
   if (!hero) return <div className="text-center mt-10">Hero not found</div>;
+
+  // Confirm deletion handler
+  const confirmDelete = async () => {
+    await handleDeleteHero(hero.id);
+    setShowConfirm(false);
+  };
 
   return (
     <div className="max-w-3xl mx-auto p-4 md:p-8 ">
@@ -52,7 +62,7 @@ export default function HeroDetails() {
       {/* Buttons */}
       <div className="flex justify-between mt-6 gap-4">
         <button
-          onClick={() => handleDeleteHero(hero.id)}
+          onClick={() => setShowConfirm(true)}
           className="px-4 py-2 bg-red-500 text-black rounded-lg hover:bg-red-600"
         >
           Delete Hero
@@ -66,6 +76,26 @@ export default function HeroDetails() {
           Edit Hero
         </button>
       </div>
+
+      {/* Confirmation modal */}
+      {showConfirm && (
+        <div className="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50">
+          <ConfirmationComponent
+            message="Are you sure you want to delete this hero?"
+            onConfirm={confirmDelete}
+            onCancel={() => setShowConfirm(false)}
+          />
+        </div>
+      )}
+
+      {/* Message modal */}
+      {message && (
+        <MessageComponent
+          message={message}
+          onClose={() => setMessage("")}
+          navigateTo="/" 
+        />
+      )}
     </div>
   );
 }
