@@ -24,11 +24,11 @@ export const Carousel: React.FC<CarouselProps> = ({ images }) => {
     <div className="w-full max-w-2xl mx-auto">
       <Slider {...settings}>
         {images.map((img) => (
-          <div key={img.id} className="relative">
+          <div key={img.id} className="relative bg-gray-500">
             <img
               src={img.url}
               alt="hero"
-              className="w-full h-auto object-contain rounded-lg"
+              className="w-full max-h-100 object-scale-down rounded-lg"
             />
             <button
               onClick={() => handleDeleteImage(img.id)}
