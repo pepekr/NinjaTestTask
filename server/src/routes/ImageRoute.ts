@@ -17,7 +17,7 @@ imageRouter.get("/full/:heroId", async (req, res) => {
 imageRouter.put("/addImages/:heroId", upload.array("images"), async (req, res) => {
   await addImages(req, res);
 });
-imageRouter.delete("/deleteImage/:imageId", async (req, res) => {
+imageRouter.delete("/deleteImages/", async (req, res) => {
   await deleteImages(req, res);
 });
 export default imageRouter;
