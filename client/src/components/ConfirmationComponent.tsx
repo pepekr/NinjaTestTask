@@ -38,7 +38,7 @@ function ConfirmationComponent({
       }`}
     >
       <p className="mb-4">{message}</p>
-      <div className="flex justify-end gap-2">
+      <div className="flex justify-center gap-2">
         <button
           onClick={handleLoading}
           disabled={isLoading}
