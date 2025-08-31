@@ -2,15 +2,17 @@ import { Request, Response } from "express";
 import { imgRouteService, superheroRouteService} from "singletones.js";
 export async function getHeroes(req: Request, res: Response) {
   try {
+    
     const offset = Number(req.params.offset);
     const take = Number(req.params.take);
     const heroes = await superheroRouteService.getHeroesInfo(offset, take);
     const promiseImages = heroes.map(async (hero) => {
+      if(!hero.id) return null
       const imgs = await imgRouteService.getAllHeroImages(hero.id, 0, 1);
       return imgs.length ? imgs[0] : null;
     });
 
-    const images = await Promise.all(promiseImages);
+    const images = (await Promise.all(promiseImages)).filter(img=>img!=null);
     return res.status(200).json({heroes,images});  
 
   } catch (error: any) {
