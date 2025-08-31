@@ -34,7 +34,7 @@ FRONTEND_URL=http://example
 Running the Project
 
 To run both frontend and backend concurrently:
-
-npm run dev
+cd server npm run dev
+cd client npm run dev
 
 This will start the backend server and the frontend development server.
