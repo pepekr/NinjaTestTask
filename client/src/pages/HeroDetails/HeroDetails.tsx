@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import type { Superhero } from "../../../../shared/interfaces/SuperHero";
 import { useHeroImages } from "./useHeroImages";
 import { Carousel } from "../../components/Carousel";
@@ -13,7 +13,9 @@ function handleEditHero(id:string) {
   // TODO: edit hero details
 }
 
-export default function HeroDetails() {
+export default function HeroDetails() 
+{
+  const navigate = useNavigate()
   const location = useLocation();
   const hero = location.state as Superhero;
   const { heroImages, getImages, handleAddImages } = useHeroImages();
@@ -63,7 +65,7 @@ export default function HeroDetails() {
           Delete Hero
         </button>
         <button
-          onClick={()=>handleEditHero}
+          onClick={()=>navigate(`/hero-edit/${hero.id}`, {state:{hero,heroImages}})}
           className="px-4 py-2 bg-blue-500 text-black rounded-lg hover:bg-blue-600"
         >
           Edit Hero
