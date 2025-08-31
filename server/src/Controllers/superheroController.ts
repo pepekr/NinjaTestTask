@@ -2,15 +2,17 @@ import { Request, Response } from "express";
 import { imgRouteService, superheroRouteService} from "singletones.js";
 export async function getHeroes(req: Request, res: Response) {
   try {
+    
     const offset = Number(req.params.offset);
     const take = Number(req.params.take);
     const heroes = await superheroRouteService.getHeroesInfo(offset, take);
     const promiseImages = heroes.map(async (hero) => {
+      if(!hero.id) return null
       const imgs = await imgRouteService.getAllHeroImages(hero.id, 0, 1);
       return imgs.length ? imgs[0] : null;
     });
 
-    const images = await Promise.all(promiseImages);
+    const images = (await Promise.all(promiseImages)).filter(img=>img!=null);
     return res.status(200).json({heroes,images});  
 
   } catch (error: any) {
@@ -20,21 +22,21 @@ export async function getHeroes(req: Request, res: Response) {
   
 }
 
-export async function deleteHero(req:Request, res:Response)
-{
+export async function deleteHero(req: Request, res: Response) {
   try {
-    const deletedHero = await superheroRouteService.deleteHeroInfo(req.params.id)
-    if(!deletedHero) return res.status(400).send("Error during delete");
     const images = await imgRouteService.getAllHeroImages(req.params.id);
-    const deletedImages = images.map(async (image)=>
-      {
-        return await imgRouteService.deleteImage(image.id, image.url);
-        // maybe later create array of mistakes for better logging  
-      });
-      await Promise.all(deletedImages);
-      return res.status(200).json({message:"Hero deleted", id:req.params.id})
-  } catch (error:any) {
-    return res.status(400).json(error.message)
+    const deletedImages = images.map(async (image) => {
+      return await imgRouteService.deleteImage(image.id, image.url);
+      // maybe later create array of mistakes for better logging  
+    });
+    await Promise.all(deletedImages);
+
+    const deletedHero = await superheroRouteService.deleteHeroInfo(req.params.id);
+    if (!deletedHero) return res.status(400).json("Error during delete");
+
+    return res.status(200).json({ message: "Hero deleted", id: req.params.id });
+  } catch (error: any) {
+    return res.status(400).json(error.message);
   }
 }
 
