@@ -14,13 +14,14 @@ datasource db {
 }
 
 model SuperHero {
-  id                 String  @id @default(uuid())
+  id                 String   @id @default(uuid())
   nickname           String
   real_name          String
   origin_description String
   superpowers        String // in pdf provided superpowers look like plain text so no additional table needed 
   catch_phrase       String
   images             Image[]
+  createdAt          DateTime @default(now())
 }
 
 model Image {
@@ -28,4 +29,5 @@ model Image {
   imageOwnerId String
   imageOwner   SuperHero @relation(fields: [imageOwnerId], references: [id])
   url          String
+  createdAt    DateTime  @default(now())
 }
