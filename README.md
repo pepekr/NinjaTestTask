@@ -19,11 +19,17 @@ VITE_BACKEND_API_URL=http://example
 Backend (.env)
 
 DATABASE_URL=postgresql://postgres:password@localhost:5432/dbname
+
 AWS_ACCESS_KEY=your_s3_access_key
+
 AWS_SECRET_ACCESS_KEY=your_s3_secret_key
+
 AWS_BUCKET_NAME=your_bucket_name
+
 AWS_REGION=eu-north-1
+
 FRONTEND_URL=http://example
+
 
 Running the Project
 
