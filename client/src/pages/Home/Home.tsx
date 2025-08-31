@@ -16,7 +16,8 @@ const Home = () => {
   const getHeroImage = (heroId: string) =>
     images.find((img: HeroImage) => img.imageOwnerId === heroId)?.url;
 
-  return (
+  return (<>
+  {heroes.length>0?
     <div className="p-6 bg-gray-100 min-h-screen">
       <h1 className="text-3xl font-bold text-center mb-6 text-gray-800">
         Superheroes
@@ -74,8 +75,15 @@ const Home = () => {
           {"Next >"}
         </button>
       </div>
-    </div>
-  );
+    </div>:(
+      <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
+        <p className="text-red-600 font-bold text-xl mb-2">
+          Couldn’t load heroes
+        </p>
+        <p className="text-gray-600">Please try again later.</p>
+      </div>
+    )}
+  </>);
 };
 
 export default Home;

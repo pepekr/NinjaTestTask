@@ -4,12 +4,13 @@ import type { HeroImage } from "../../../../shared/interfaces/HeroImage";
 export function useFullHero({ setCounterOffset }: { setCounterOffset: React.Dispatch<React.SetStateAction<number>> }) {
   const [heroes, setHeroes] = useState<Superhero[]>([]);
   const [images, setImages] = useState<HeroImage[]>([]);
+
   async function getPageInfo(offset: number, take: number) {
     const response = await fetch(
       `${import.meta.env.VITE_BACKEND_API_URL}/superheroes/${offset}/${take}`
     );
     if (!response.ok) {
-    } // make error component
+    } 
     else {
       const { heroes, images }: { heroes: Superhero[]; images: HeroImage[] } =
         await response.json();
