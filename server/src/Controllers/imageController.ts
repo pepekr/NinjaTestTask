@@ -29,8 +29,8 @@ export async function addImages(req: Request, res: Response) {
 
     for (const file of files) {
       const bucketUrl = await imgCloudService.saveItem(
-        file.buffer,        // multer gives you buffer directly
-        file.originalname   // multer gives original file name
+        file.buffer,        
+        file.originalname   
       );
 
       const savedImage = await imgDbService.create({
