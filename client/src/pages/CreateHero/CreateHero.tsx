@@ -1,6 +1,7 @@
 import React from "react";
 import { useHeroSubmit } from "./useHeroSubmit.js";
 import { useHeroForm } from "./useHeroForm.js";
+import { MessageComponent } from "../../components/MessageComponent.js";
 
 const CreateHero: React.FC = () => {
   const {
@@ -13,7 +14,7 @@ const CreateHero: React.FC = () => {
     resetForm,
   } = useHeroForm();
 
-  const { isSubmitting, handleSubmit } = useHeroSubmit(resetForm);
+  const { isSubmitting, handleSubmit, message, setMessage } = useHeroSubmit(resetForm);
 
   return (
     <form
@@ -94,6 +95,7 @@ const CreateHero: React.FC = () => {
       >
         {isSubmitting ? "Submitting..." : "Create Hero"}
       </button>
+     {message&& <MessageComponent navigateTo="/" onClose={()=>setMessage("")} message = {message}/>}
     </form>
   );
 };

@@ -3,7 +3,7 @@ import type { SuperheroCreational } from "../../../../shared/interfaces/SuperHer
 
 export const useHeroSubmit = (resetForm: () => void) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
-
+  const [message, setMessage] = useState("")
   const handleSubmit = async (hero: SuperheroCreational, images: File[], e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
@@ -29,20 +29,20 @@ export const useHeroSubmit = (resetForm: () => void) => {
 
         if (!imageResponse.ok) {
           const err = await imageResponse.json();
-          alert(err);
+          setMessage(err);
         }
       }
 
-      alert("Hero created successfully!");
+      setMessage("Hero created succesfully")
       resetForm();
 
     } catch (error: any) {
       console.error(error);
-      alert(error.message);
+      setMessage(error.message);
     } finally {
       setIsSubmitting(false);
     }
   };
 
-  return { isSubmitting, handleSubmit };
+  return { isSubmitting, handleSubmit, message, setMessage };
 };
