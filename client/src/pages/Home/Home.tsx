@@ -8,9 +8,8 @@ const Home = () => {
   const [counterOffset, setCounterOffset] = useState<number>(0);
   const { heroes, images, getPageInfo } = useFullHero({ setCounterOffset });
   const navigate = useNavigate();
+
   useEffect(() => {
-    console.log("start");
-    console.log(counterOffset);
     getPageInfo(counterOffset, 5);
   }, [counterOffset]);
 
@@ -18,55 +17,64 @@ const Home = () => {
     images.find((img: HeroImage) => img.imageOwnerId === heroId)?.url;
 
   return (
-    <>
-      <div className="grid grid-cols-3 gap-6 p-6">
+    <div className="p-6 bg-gray-100 min-h-screen">
+      <h1 className="text-3xl font-bold text-center mb-6 text-gray-800">
+        Superheroes
+      </h1>
+
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
         {heroes.map((hero: Superhero) => {
           const img = getHeroImage(hero.id);
           return (
             <div
-              onClick={() => {
-                navigate(`/hero-details/${hero.id}`, {state:hero});
-              }}
+              onClick={() => navigate(`/hero-details/${hero.id}`, { state: hero })}
               key={hero.id}
-              className="relative border rounded-lg shadow-md p-4 flex hover:cursor-pointer flex-col"
+              className="relative border rounded-lg shadow-lg p-6 flex flex-col bg-white transition-transform hover:scale-105 hover:shadow-2xl cursor-pointer"
             >
-              <div className="absolute top-2 right-2 flex gap-2 "></div>
               {img && (
                 <img
                   src={img}
                   alt={hero.nickname}
-                  className="w-32 h-32 object-cover rounded-full mb-4"
+                  className="w-32 h-32 object-cover rounded-full mx-auto mb-4 border-2 border-blue-500"
                 />
               )}
-              <h2 className="text-lg font-bold">NickName: {hero.nickname}</h2>
-              <p className="text-sm text-gray-500">
-                Real name: {hero.real_name}
+              <h2 className="text-xl font-bold text-center mb-1 text-gray-900">
+                {hero.nickname}
+              </h2>
+              <p className="text-sm text-gray-500 text-left mb-2">
+                Real Name: {hero.real_name}
               </p>
-              <p className="mt-2 text-left">
-                Origin Description: {hero.origin_description}
+              <p className="text-gray-700 mb-2 text-left">
+                <span className="font-semibold">Origin:</span> {hero.origin_description}
               </p>
-              <p className="mt-2 font-semibold text-blue-600">
-                SuperPowers: {hero.superpowers}
+              <p className="text-blue-600 font-semibold mb-2 text-left">
+                Superpowers: {hero.superpowers}
               </p>
-              <p className="mt-1 italic">Catch phrase: "{hero.catch_phrase}"</p>
+              <p className="italic text-gray-600  text-left">
+                "{hero.catch_phrase}"
+              </p>
             </div>
           );
         })}
-        {/* Arrow buttons for offset */}
       </div>
-      <div className="w-full text-center">
+
+      {/* Pagination buttons */}
+      <div className="w-full flex justify-center gap-4 mt-6">
         <button
-          onClick={() =>
-            setCounterOffset((prev) => (prev - 5 >= 0 ? prev - 5 : 0))
-          }
+          onClick={() => setCounterOffset((prev) => (prev - 5 >= 0 ? prev - 5 : 0))}
+          className="px-4 py-2 bg-blue-500 text-white font-semibold rounded hover:bg-blue-600 transition"
         >
-          {"<"}
+          {"< Prev"}
         </button>
-        <button onClick={() => setCounterOffset((prev) => prev + 5)}>
-          {">"}
+        <p  className="px-4 py-2  text-blue-500 font-semibold rounded  transition">{(counterOffset/5)+1}</p>
+        <button
+          onClick={() => setCounterOffset((prev) => prev + 5)}
+          className="px-4 py-2 bg-blue-500 text-white font-semibold rounded hover:bg-blue-600 transition"
+        >
+          {"Next >"}
         </button>
       </div>
-    </>
+    </div>
   );
 };
 
