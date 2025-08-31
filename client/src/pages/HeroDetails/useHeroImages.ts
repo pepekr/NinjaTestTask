@@ -1,9 +1,10 @@
 import { useState } from "react";
 import type { HeroImage } from "../../../../shared/interfaces/HeroImage";
+import { useNavigate } from "react-router-dom";
 
 export function useHeroImages() {
   const [heroImages, setImages] = useState<HeroImage[]>([]);
-  const [error, setError] = useState("");
+  const [message, setMessage] = useState("");
   async function getImages(id: string) {
     try {
       const response = await fetch(
@@ -18,23 +19,20 @@ export function useHeroImages() {
       }
     } catch (error) {}
   }
-  async function handleAddImages(images: File[], heroId: string) {
-    if (images.length > 0) {
-      const formData = new FormData();
-      images.forEach((file) => formData.append("images", file));
-      const imageResponse = await fetch(
-        `${import.meta.env.VITE_BACKEND_API_URL}/images/addImages/${heroId}`,
-        { method: "PUT", body: formData }
+  async function handleDeleteHero(heroId: string) {
+
+      const deletedId = await fetch(
+        `${import.meta.env.VITE_BACKEND_API_URL}/superheroes/delete/${heroId}`,
+        { method: "DELETE", }
       );
 
-      if (!imageResponse.ok) {
-        const err = await imageResponse.json();
+      if (!deletedId.ok) {
+        const err = await deletedId.json();
         alert(err);
       } else {
-        const newImages: HeroImage[] = await imageResponse.json();
-        setImages((prev) => [...prev, ...newImages]);
+        setMessage("Hero deleted")
       }
-    }
+    
   }
-  return { heroImages, getImages, handleAddImages };
+  return { heroImages, getImages, handleDeleteHero, message };
 }
