@@ -22,21 +22,21 @@ export async function getHeroes(req: Request, res: Response) {
   
 }
 
-export async function deleteHero(req:Request, res:Response)
-{
+export async function deleteHero(req: Request, res: Response) {
   try {
-    const deletedHero = await superheroRouteService.deleteHeroInfo(req.params.id)
-    if(!deletedHero) return res.status(400).send("Error during delete");
     const images = await imgRouteService.getAllHeroImages(req.params.id);
-    const deletedImages = images.map(async (image)=>
-      {
-        return await imgRouteService.deleteImage(image.id, image.url);
-        // maybe later create array of mistakes for better logging  
-      });
-      await Promise.all(deletedImages);
-      return res.status(200).json({message:"Hero deleted", id:req.params.id})
-  } catch (error:any) {
-    return res.status(400).json(error.message)
+    const deletedImages = images.map(async (image) => {
+      return await imgRouteService.deleteImage(image.id, image.url);
+      // maybe later create array of mistakes for better logging  
+    });
+    await Promise.all(deletedImages);
+
+    const deletedHero = await superheroRouteService.deleteHeroInfo(req.params.id);
+    if (!deletedHero) return res.status(400).json("Error during delete");
+
+    return res.status(200).json({ message: "Hero deleted", id: req.params.id });
+  } catch (error: any) {
+    return res.status(400).json(error.message);
   }
 }
 

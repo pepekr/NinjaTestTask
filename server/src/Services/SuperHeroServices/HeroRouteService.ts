@@ -37,8 +37,8 @@ export class HeroRouteService {
       });
       await Promise.all(imagePromises);
       return true;
-    } catch (error) {
-      console.error("delete isnt done");
+    } catch (error:any) {
+      console.error(error.message);
       return false;
     }
   }
