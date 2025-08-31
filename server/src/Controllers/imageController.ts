@@ -61,7 +61,7 @@ export async function deleteImages(req: Request, res: Response) {
             await imgDbService.delete(image.id);
             deletedIds.push(image.id);
         }
-        return res.status(200).json({ deleted: deletedIds });
+        return res.status(200).json({ deletedIds: deletedIds });
     } catch (error: any) {
         return res.status(400).json(error.message);
     }

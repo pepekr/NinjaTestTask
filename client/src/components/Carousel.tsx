@@ -7,10 +7,6 @@ interface CarouselProps {
   images: HeroImage[];
 }
 
-function handleDeleteImage(id: string) {
-  // TODO: delete single image by id
-}
-
 export const Carousel: React.FC<CarouselProps> = ({ images }) => {
   const settings = {
     dots: true,
@@ -30,12 +26,6 @@ export const Carousel: React.FC<CarouselProps> = ({ images }) => {
               alt="hero"
               className="w-full max-h-100 object-scale-down rounded-lg"
             />
-            <button
-              onClick={() => handleDeleteImage(img.id)}
-              className="absolute top-2 right-2 bg-red-500 text-black p-1 rounded-full shadow-md hover:bg-red-600"
-            >
-              ✕
-            </button>
           </div>
         ))}
       </Slider>

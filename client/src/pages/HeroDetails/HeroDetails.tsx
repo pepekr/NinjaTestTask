@@ -18,7 +18,7 @@ export default function HeroDetails() {
   if (!hero) return <div className="text-center mt-10">Hero not found</div>;
 
   return (
-    <div className="max-w-3xl mx-auto p-4 md:p-8">
+    <div className="max-w-3xl mx-auto p-4 md:p-8 ">
       <div>
         <h1
           className="font-bold mb-6 text-center max-w-full text-indigo-600"
@@ -33,7 +33,7 @@ export default function HeroDetails() {
         </div>
 
         {/* Hero Info */}
-        <div className="bg-white shadow-lg rounded-lg p-6 space-y-4">
+        <div className="bg-white text-black shadow-lg rounded-lg p-6 space-y-4">
           <p className="text-lg">
             <span className="font-semibold text-indigo-500">Real Name:</span>{" "}
             {hero.real_name}

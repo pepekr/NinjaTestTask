@@ -1,6 +1,5 @@
 import { useState } from "react";
 import type { HeroImage } from "../../../../shared/interfaces/HeroImage";
-import { useNavigate } from "react-router-dom";
 
 export function useHeroImages() {
   const [heroImages, setImages] = useState<HeroImage[]>([]);
